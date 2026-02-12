@@ -19,6 +19,15 @@ function App(): React.JSX.Element {
                             Edit <code>src/App.tsx</code> and save. This page
                             will automatically reload.
                         </p>
+                        <div
+                            style={{
+                                backgroundColor: "red",
+                                width: "100",
+                                height: "15",
+                            }}
+                        >
+                            <br />
+                        </div>
                     </Col>
                 </Row>
                 <Row>
@@ -29,6 +38,15 @@ function App(): React.JSX.Element {
                             <li>Model Painting</li>
                             <li>Sailing</li>
                         </ul>
+                        <div
+                            style={{
+                                backgroundColor: "red",
+                                width: "100",
+                                height: "15",
+                            }}
+                        >
+                            <br />
+                        </div>
                     </Col>
                     <Col>
                         <p>Here is a photo of me out on the water</p>
@@ -37,6 +55,15 @@ function App(): React.JSX.Element {
                             alt="Me at sailing practice"
                             width="250"
                         />
+                        <div
+                            style={{
+                                backgroundColor: "red",
+                                width: "100",
+                                height: "15",
+                            }}
+                        >
+                            <br />
+                        </div>
                     </Col>
                 </Row>
                 <Row>
