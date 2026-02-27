@@ -1,6 +1,6 @@
 import { Answer } from "./interfaces/answer";
 import { Question, QuestionType } from "./interfaces/question";
-import { makeBlankQuestion } from "./objects";
+import { makeBlankQuestion, duplicateQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -146,7 +146,13 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
-    return false;
+    if (questions.length === 0) {
+        return true;
+    }
+    let firstType: QuestionType = questions[0].type;
+    return questions.every(
+        (question: Question): boolean => question.type === firstType,
+    );
 }
 
 /***
@@ -174,7 +180,13 @@ export function renameQuestionById(
     targetId: number,
     newName: string,
 ): Question[] {
-    return [];
+    return questions.map((question: Question): Question => {
+        if (question.id === targetId) {
+            return { ...question, name: newName };
+        } else {
+            return question;
+        }
+    });
 }
 
 /***
@@ -189,7 +201,17 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType,
 ): Question[] {
-    return [];
+    return questions.map((question: Question): Question => {
+        if (question.id === targetId) {
+            if (newQuestionType === "short_answer_question")
+                return { ...question, type: newQuestionType, options: [] };
+            else {
+                return { ...question, type: newQuestionType };
+            }
+        } else {
+            return question;
+        }
+    });
 }
 
 /**
@@ -208,7 +230,21 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string,
 ): Question[] {
-    return [];
+    return questions.map((question: Question): Question => {
+        if (question.id === targetId) {
+            let editedQuestion = { ...question };
+            if (targetOptionIndex === -1) {
+                editedQuestion.options = [...editedQuestion.options, newOption];
+            } else {
+                //editedQuestion.options[targetOptionIndex] = newOption;
+                editedQuestion.options = [...editedQuestion.options];
+                editedQuestion.options[targetOptionIndex] = newOption;
+            }
+            return editedQuestion;
+        } else {
+            return question;
+        }
+    });
 }
 
 /***
@@ -222,5 +258,14 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number,
 ): Question[] {
-    return [];
+    let newArray: Question[] = [...questions];
+    let dupQuestion = duplicateQuestion(
+        newId,
+        findQuestion(questions, targetId) as Question,
+    );
+    let targetIndex = questions.findIndex(
+        (question: Question): boolean => question.id === targetId,
+    );
+    newArray.splice(targetIndex + 1, 0, dupQuestion);
+    return newArray;
 }
