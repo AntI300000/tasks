@@ -33,7 +33,14 @@ export function findQuestion(
     questions: Question[],
     id: number,
 ): Question | null {
-    return null;
+    const foundQuestion = questions.find(
+        (question: Question): boolean => question.id === id,
+    );
+    if (foundQuestion === undefined) {
+        return null;
+    } else {
+        return foundQuestion;
+    }
 }
 
 /**
@@ -41,7 +48,9 @@ export function findQuestion(
  * with the given `id`.
  */
 export function removeQuestion(questions: Question[], id: number): Question[] {
-    return [];
+    return questions.filter(
+        (question: Question): boolean => question.id !== id,
+    );
 }
 
 /***
@@ -49,21 +58,30 @@ export function removeQuestion(questions: Question[], id: number): Question[] {
  * questions, as an array.
  */
 export function getNames(questions: Question[]): string[] {
-    return [];
+    return questions.map((question: Question): string => question.name);
 }
 
 /***
  * Consumes an array of questions and returns the sum total of all their points added together.
  */
 export function sumPoints(questions: Question[]): number {
-    return 0;
+    return questions.reduce(
+        (sum: number, question: Question): number => sum + question.points,
+        0,
+    );
 }
 
 /***
  * Consumes an array of questions and returns the sum total of the PUBLISHED questions.
  */
 export function sumPublishedPoints(questions: Question[]): number {
-    return 0;
+    return questions.reduce((sum: number, question: Question): number => {
+        if (question.published) {
+            return sum + question.points;
+        } else {
+            return sum;
+        }
+    }, 0);
 }
 
 /***
@@ -84,7 +102,16 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    return "";
+    let csv = "id,name,options,points,published";
+    csv = questions.reduce((rCVS: string, question: Question): string => {
+        rCVS = rCVS.concat(
+            `\n${question.id},${question.name},${question.options.length},${question.points},${question.published}`,
+        );
+        return rCVS;
+    }, csv);
+    //console.log(csv);
+    //console.log("-----------------\n");
+    return csv;
 }
 
 /**
