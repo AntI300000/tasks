@@ -7,7 +7,7 @@ import { TwoDice } from "./components/TwoDice";
 import { CycleHoliday } from "./components/CycleHoliday";
 import { Counter } from "./components/Counter";
 
-import img from "./assets/images/sailing_photo.jpg";
+//import img from "./assets/images/sailing_photo.jpg";
 
 function App(): React.JSX.Element {
     return (
