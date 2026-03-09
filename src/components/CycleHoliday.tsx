@@ -17,7 +17,7 @@ const dateOrder: Map<Holiday, Holiday> = new Map([
     ["Christmas Day", "New Years Day"],
 ]);
 
-const alphabeticalOrder: map<Holiday, Holiday> = new Map([
+const alphabeticalOrder: Map<Holiday, Holiday> = new Map([
     ["Christmas Day", "Halloween"],
     ["Halloween", "Thanksgiving Day"],
     ["Thanksgiving Day", "Valentine's Day"],
@@ -25,7 +25,7 @@ const alphabeticalOrder: map<Holiday, Holiday> = new Map([
     ["New Years Day", "Christmas Day"],
 ]);
 
-const emojiMap: map<Holiday, string> = new Map([
+const emojiMap: Map<Holiday, string> = new Map([
     ["New Years Day", "🎆"],
     ["Valentine's Day", "❤️"],
     ["Halloween", "🎃"],
@@ -34,5 +34,33 @@ const emojiMap: map<Holiday, string> = new Map([
 ]);
 
 export function CycleHoliday(): React.JSX.Element {
-    return <div>Cycle Holiday</div>;
+    const [currHoliday, setHoliday] = useState<Holiday>("New Years Day");
+
+    function advanceByAlphabet() {
+        setHoliday(alphabeticalOrder.get(currHoliday) ?? currHoliday);
+    }
+
+    function advanceByDate() {
+        setHoliday(dateOrder.get(currHoliday) ?? currHoliday);
+    }
+
+    return (
+        <span>
+            <span>Holiday: {emojiMap.get(currHoliday)}</span>
+            <Button
+                onClick={() => {
+                    advanceByAlphabet();
+                }}
+            >
+                Advance by Alphabet
+            </Button>
+            <Button
+                onClick={() => {
+                    advanceByDate();
+                }}
+            >
+                Advance by Year
+            </Button>
+        </span>
+    );
 }
