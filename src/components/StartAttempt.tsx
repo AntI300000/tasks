@@ -5,28 +5,33 @@ export function StartAttempt(): React.JSX.Element {
     const [numOfAttempts, setNumOfAttempts] = useState<number>(4);
     const [inProgress, setInPogress] = useState<boolean>(false);
 
-    function changeInProgress(): void {
-        setInPogress(!inProgress);
-    }
-
     function changeNumOfAttempts(changeBy: number): void {
         setNumOfAttempts(numOfAttempts + changeBy);
+    }
+
+    function startTest(): void {
+        changeNumOfAttempts(-1);
+        setInPogress(true);
+    }
+
+    function stopTest(): void {
+        setInPogress(false);
     }
 
     return (
         <span>
             <Button
                 onClick={() => {
-                    changeInProgress();
+                    startTest();
                 }}
-                disabled={inProgress}
+                disabled={inProgress || numOfAttempts <= 0}
             >
                 Start Quiz
             </Button>
 
             <Button
                 onClick={() => {
-                    changeInProgress();
+                    stopTest();
                 }}
                 disabled={!inProgress}
             >
