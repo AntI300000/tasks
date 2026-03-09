@@ -23,6 +23,7 @@ export function ChooseTeam(): React.JSX.Element {
 
     function clearTeam() {
         setTeam([]);
+        setAllOptions(allOptions); //no idea if this is needed but dont want the error
     }
 
     return (
