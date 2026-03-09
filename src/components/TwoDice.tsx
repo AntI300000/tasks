@@ -25,8 +25,6 @@ export function TwoDice(): React.JSX.Element {
 
     return (
         <span>
-            <span data-testid="right-die">{diceRightValue}</span>
-            <span data-testid="left-die">{diceLeftValue}</span>
             <Button
                 onClick={() => {
                     rollRight();
@@ -41,6 +39,11 @@ export function TwoDice(): React.JSX.Element {
             >
                 Roll Left
             </Button>
+            <br></br>
+            <span data-testid="right-die">Right value:{diceRightValue}</span>
+            <span> | </span>
+            <span data-testid="left-die">Left Value:{diceLeftValue}</span>
+            <br></br>
             {diceRightValue === 1 && diceLeftValue === 1 && <p>Lose</p>}
             {diceRightValue === diceLeftValue && diceLeftValue !== 1 && (
                 <p>Win</p>

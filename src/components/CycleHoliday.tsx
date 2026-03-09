@@ -46,7 +46,6 @@ export function CycleHoliday(): React.JSX.Element {
 
     return (
         <span>
-            <span>Holiday: {emojiMap.get(currHoliday)}</span>
             <Button
                 onClick={() => {
                     advanceByAlphabet();
@@ -61,6 +60,8 @@ export function CycleHoliday(): React.JSX.Element {
             >
                 Advance by Year
             </Button>
+            <br></br>
+            <span>Holiday: {emojiMap.get(currHoliday)}</span>
         </span>
     );
 }
