@@ -27,21 +27,19 @@ function NumbBox({
 function UseButton({
     currAttempts,
     setCurrAttempts,
-    children,
 }: {
     currAttempts: number;
     setCurrAttempts: (n: number) => void;
-    children?: React.ReactNode;
 }): React.JSX.Element {
     return (
         <span>
-            {children}
             <Button
                 onClick={() => {
                     if (currAttempts > 0) {
-                        setCurrAttempts(currAttempts--);
+                        setCurrAttempts(currAttempts - 1);
                     }
                 }}
+                disabled={!(currAttempts > 0)}
             >
                 Use
             </Button>
@@ -61,7 +59,9 @@ function GainButton({
     return (
         <Button
             onClick={() => {
-                setCurrAttempts(parseInt(requestedAttempts) + currAttempts);
+                if (!isNaN(parseInt(requestedAttempts))) {
+                    setCurrAttempts(parseInt(requestedAttempts) + currAttempts);
+                }
             }}
         >
             Gain
@@ -84,9 +84,12 @@ export function GiveAttempts(): React.JSX.Element {
             <UseButton
                 currAttempts={currAttempts}
                 setCurrAttempts={setCurrAttempts}
-            >
-                use
-            </UseButton>
+            />
+            <GainButton
+                requestedAttempts={requestedAttempts}
+                currAttempts={currAttempts}
+                setCurrAttempts={setCurrAttempts}
+            />
         </div>
     );
 }
