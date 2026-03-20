@@ -44,7 +44,7 @@ function ColorButton({
             onChange={() => {
                 setColor(buttonColor);
             }}
-            id="emotion-check-happy"
+            id={`color-check-${buttonColor}`}
             label={buttonColor}
             value={buttonColor}
             checked={color === buttonColor}
